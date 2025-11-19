@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manipular elements HTML</title>
+  </head>
+
+  <body>
+    <h1>
+      Exemple 5. Agafar valor input, utilitzar funció i modificar valor etiqueta
+      "innerHTML"
+    </h1>
+    <h1 id="titol">Hola, món!</h1>
+    <form>
+      <label for="quantitat">Quantitat:</label>
+      <input type="number" id="quantitat" value="10" />
+      <button type="button" onclick="actualitzarTitol()">
+        Actualitza títol
+      </button>
+    </form>
+
+    <script>
+      function actualitzarTitol() {
+        // Accedim al valor de l'input
+        let valor = document.getElementById("quantitat").value;
+
+        // Actualitzem el títol amb el valor introduït
+        // document.getElementById("titol").textContent = "La quantitat és: " + valor;
+        document.getElementById("titol").innerHTML =
+          "La quantitat és: <u>" + valor + "</u>";
+        //document.getElementById("titol").innerHTML = "La quantitat és: <a href='https://www.google.com'>" + valor + "</a>";
+      }
+    </script>
+  </body>
+</html>

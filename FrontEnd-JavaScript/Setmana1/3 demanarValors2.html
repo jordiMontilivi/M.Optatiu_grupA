@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exemple de formulari</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <h1>Exemple 3: Sumar variables demanant valor usuari amb scrip extern</h1>
+    <p>
+      Si sumem <span id="peres">5</span> peres amb
+      <span id="pomes">6</span> pomes tindrem un total de
+      <span id="fruites"></span> fruites
+    </p>
+    <script>
+      //let peres = parseInt(document.getElementById("peres").textContent);
+      const elemPeres = document.getElementById("peres");
+      let peres = Number(elemPeres.textContent);
+      let pomes = parseInt(document.getElementById("pomes").textContent);
+      let fruites = peres + pomes;
+
+      // Mostrar el resultat dintre de l'etiqueta <span id="fruites">
+      document.getElementById("fruites").textContent = fruites;
+    </script>
+  </body>
+</html>

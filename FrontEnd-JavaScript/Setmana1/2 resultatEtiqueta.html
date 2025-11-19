@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exemple de formulari</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <h1>
+      Exemple 2: Sumar variables i mostrar el resultat a una etiqueta span
+    </h1>
+    <p>
+      Si sumem 3 peres amb 4 pomes tindrem un total de
+      <span id="fruitesSpan"></span> fruites
+    </p>
+    <script>
+      let peres = 5;
+      let pomes = 4;
+
+      let fruites = peres + pomes;
+
+      // Mostrar el resultat dintre de l'etiqueta <span id="fruites">
+      const elem = document.getElementById("fruitesSpan");
+      elem.textContent = fruites;
+      //document.getElementById("fruites").textContent = fruites;
+    </script>
+  </body>
+</html>

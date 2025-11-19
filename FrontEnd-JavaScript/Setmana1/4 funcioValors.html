@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <title>Exemple de HTML - Javascript - Exemple 3</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</head>
+
+<body>
+    <h1>Exemple 4. Agafar valor input boto cridar funció modificar etiqueta</h1>
+    <label for="nom">Nom: </label>
+    <input id="nom" type="text">
+    <button onclick="saludar();">Saludar</button>
+    <hr>
+    </hr>
+    <h1 id="Saludem">hola</h1>
+    <script>
+        // funció de Saludar
+        function saludar() {
+            // obtenim el valor de l'input
+            let nom = document.getElementById("nom").value;
+            //mostrem la salutació concatenada a dins del <div> Saludem
+            document.getElementById("Saludem").innerHTML = "hola " + "<u>" + nom + "</u>";
+        }
+    </script>
+</body>
+
+</html>

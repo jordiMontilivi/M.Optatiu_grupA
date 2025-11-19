@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <title>Exemple de HTML - Javascript - Exemple 3</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <h1>Exemple 6: Funció per doblar el valor automàtica i amb botó</h1>
+  <p>Si doblem el valor de <span id="valor">6</span> obtenim <span id="doble"></span></p>
+  <script>
+    // Definim la funció doblar
+    function doblar(valor) {
+      return valor * 2;
+    }
+
+    let valor = parseInt(document.getElementById("valor").textContent)
+    // Cridem la funció doblar amb el valor 6
+    let resultat = doblar(valor);
+
+    // Mostrar el resultat dintre de l'etiqueta <span id="doble">
+    document.getElementById("doble").textContent = resultat;
+  </script>
+
+  <button onclick="usarValor()">Usar Valor</button>
+  <script>
+    function usarValor() {
+      // Accedir a l'elemento span
+      const span = document.getElementById("valor");
+
+      // Obtenir el seu valor (contingut de text)
+      let valor = span.textContent;
+
+      // Convertir el valor a número si es necessari
+      let numero = Number(valor);
+
+      // Usar el valor (exemple: mostrar en consola o realitzar càlculs)
+      document.writeln("El valor inicial es:", numero);
+
+      // Exemple d'operació amb el valor
+      let resultat = doblar(numero);
+      document.writeln();
+      document.writeln("El doble del valor es:", resultat);
+    }
+  </script>
+</body>
+
+</html>

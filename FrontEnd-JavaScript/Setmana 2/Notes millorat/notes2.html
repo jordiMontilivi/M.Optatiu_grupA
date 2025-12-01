@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="notes2.css">
+  <title>Gestió de Notes</title>
+</head>
+
+<body>
+  <h1>Gestió de Notes d'Alumnes</h1>
+  <div id="formulari" class="formulari">
+    <label for="nom">Nom:</label>
+    <input type="text" id="nom" placeholder="Nom de l'alumne">
+
+    <label for="cognoms">Cognoms:</label>
+    <input type="text" id="cognoms" placeholder="Cognoms de l'alumne">
+
+    <div class="grid">
+      <div>
+        <label for="practica1">Pràctica 1:</label>
+        <input type="number" id="practica1" min="0" max="10" step="0.01">
+      </div>
+      <div>
+        <label for="practica2">Pràctica 2:</label>
+        <input type="number" id="practica2" min="0" max="10" step="0.01">
+      </div>
+      <div>
+        <label for="practica3">Pràctica 3:</label>
+        <input type="number" id="practica3" min="0" max="10" step="0.01">
+      </div>
+      <div>
+        <label for="examen1">Examen 1:</label>
+        <input type="number" id="examen1" min="0" max="10" step="0.01">
+      </div>
+      <div>
+        <label for="examen2">Examen 2:</label>
+        <input type="number" id="examen2" min="0" max="10" step="0.01">
+      </div>
+    </div>
+
+    <button onclick="guardarAlumno()">Següent</button>
+    <button onclick="finalitzar()">Finalitzar</button>
+  </div>
+
+  <div id="resultats"></div>
+  <div id="estadistiques"></div>
+
+  <script>
+    const alumnes = [];
+
+    function guardarAlumno() {
+      const nom = document.getElementById('nom').value;
+      const cognoms = document.getElementById('cognoms').value;
+      const practica1 = parseFloat(document.getElementById('practica1').value);
+      const practica2 = parseFloat(document.getElementById('practica2').value);
+      const practica3 = parseFloat(document.getElementById('practica3').value);
+      const examen1 = parseFloat(document.getElementById('examen1').value);
+      const examen2 = parseFloat(document.getElementById('examen2').value);
+
+      if (!nom || !cognoms || isNaN(practica1) || isNaN(practica2) || isNaN(practica3) || isNaN(examen1) || isNaN(examen2)) {
+        alert('Si us plau, completa tots els camps correctament.');
+        return;
+      }
+
+      alumnes.push({ nom, cognoms, practica1, practica2, practica3, examen1, examen2 });
+
+      // Netejar el formulari
+      document.getElementById('nom').value = '';
+      document.getElementById('cognoms').value = '';
+      document.getElementById('practica1').value = '';
+      document.getElementById('practica2').value = '';
+      document.getElementById('practica3').value = '';
+      document.getElementById('examen1').value = '';
+      document.getElementById('examen2').value = '';
+    }
+
+    function finalitzar() {
+      if (alumnes.length === 0) {
+        alert('No hi ha alumnes registrats.');
+        return;
+      }
+
+      document.getElementById('formulari').style.display = 'none';
+      alert('Formulari tancat. Els resultats es mostraran a continuació.');
+    }
+  </script>
+</body>
+
+</html>

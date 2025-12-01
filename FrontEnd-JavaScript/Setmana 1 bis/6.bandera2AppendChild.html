@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <title>Crear una bandera</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      #bandera {
+        display:flex;
+        width: 99%;
+        height: 450px;
+        border: 1px solid black;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .vermell {
+        width: 11%;
+        height: 100%;
+        background-color: red;
+        border: 1px solid black;
+      }
+      .blanc{
+        width: 11%;
+        height: 100%;
+        background-color: white;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Crear una bandera</h1>
+    <div id="bandera"></div>
+    <button id="afegirRegla">Afegir Regla</button>
+
+    <script>
+      // Afegim un event al botó per afegir un div dins de la bandera
+      document.getElementById("afegirRegla").addEventListener("click", () => {
+        
+        for(let i =0; i<9;i++){
+          // Crear un nou div
+          const nouDiv = document.createElement("div");
+          if(i%2===0){
+            nouDiv.className = "vermell"; // Assignar una classe per estilitzar-lo
+          }
+          else{
+            nouDiv.className = "blanc"; // Assignar una classe per estilitzar-lo
+          }
+          // Afegir el nou div a la bandera
+          bandera.appendChild(nouDiv);
+        }
+        
+
+      });
+    </script>
+
+  </body>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora v2</title>
+    <style>
+        #calculadora {
+            width: 470px;
+            background-color: rgb(0, 196, 0);
+            padding: 24px;
+            margin: 200px auto;
+            box-sizing: border-box;
+        }
+
+        #pantalla {
+            text-align: right;
+            font-size: 32px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            padding: 10px;
+            width: 400px;
+            border: none;
+        }
+
+        #botons {
+            text-align: center;
+        }
+
+        button {
+            width: 80px;
+            height: 40px;
+            margin: 16px 10px;
+            border: none;
+            background-color: rgb(0, 128, 0);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        button[disabled] {
+            color: grey;
+            cursor: default;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="calculadora">
+        <input type="text" id="pantalla" readonly>
+        <div id="botons">
+            <button onclick="clicBoto('MS')">MS</button>
+            <button onclick="clicBoto('MC')" id="MC">MC</button>
+            <button onclick="clicBoto('MR')" id="MR">MR</button>
+            <button onclick="clicBoto('AC')">AC</button>
+            <button onclick="clicBoto(7)">7</button>
+            <button onclick="clicBoto(8)">8</button>
+            <button onclick="clicBoto(9)">9</button>
+            <button onclick="clicBoto('/')">/</button>
+            <button onclick="clicBoto(4)">4</button>
+            <button onclick="clicBoto(5)">5</button>
+            <button onclick="clicBoto(6)">6</button>
+            <button onclick="clicBoto('*')">X</button>
+            <button onclick="clicBoto(1)">1</button>
+            <button onclick="clicBoto(2)">2</button>
+            <button onclick="clicBoto(3)">3</button>
+            <button onclick="clicBoto('-')">-</button>
+            <button onclick="clicBoto(0)">0</button>
+            <button onclick="clicBoto('.')">.</button>
+            <button onclick="clicBoto('%')">mod</button>
+            <button onclick="clicBoto('+')">+</button>
+            <button onclick="clicBoto('(')">(</button>
+            <button onclick="clicBoto(')')">)</button>
+            <button onclick="clicBoto('E')">&#8592;</button>
+            <button onclick="clicBoto('=')">=</button>
+        </div>
+    </div>
+    <script>
+        function $(e) { return document.getElementById(e) }
+
+        // Esborrem la pantalla
+        $("pantalla").value = "0"
+
+        // Desactivem els botons [MC] i [MR]
+        $("MC").disabled = true;
+        $("MR").disabled = true;
+
+        // Valor inicial de la memòria
+        let memoria = 0
+
+        function clicBoto(boto) {
+            // Botó [MS] (Memory Set)
+            if (boto == "MS") {
+                // Guardem el valor a la memòria
+                memoria = $("pantalla").value
+
+                // Activem els botons [MC] i [MR]
+                $("MC").disabled = false;
+                $("MR").disabled = false;
+            }
+            else
+                // Botó [MC] (Memory Clear)
+                if (boto == "MC") {
+                    // Buidem la memòria i esborrem pantalla
+                    memoria = 0
+                    $("pantalla").value = "0"
+
+                    // Desactivem els botons [MC] i [MR]
+                    $("MC").disabled = true;
+                    $("MR").disabled = true;
+                }
+                else
+                    // Botó [MR] (Memory Recall)
+                    if (boto == "MR") {
+                        // Recuperem el valor guardat a memòria
+                        $("pantalla").value = memoria
+                    }
+                    else
+                        // Botó fletxa (esborrar una posició)
+                        if (boto == "E") {
+                            // Eliminem el darrer caràcter de la cadena
+                            $("pantalla").value = $("pantalla").value.slice(0, -1)
+
+                            // Si era l'últim caràcter, mostrem un 0 enlloc de deixar-ho en blanc
+                            if ($("pantalla").value.length == 0) {
+                                $("pantalla").value = "0"
+                            }
+                        }
+                        else
+                            // Botó [AC] (All Clear)
+                            if (boto == "AC") {
+                                // Esborrem la pantalla
+                                $("pantalla").value = "0"
+                            }
+                            else {
+                                // Botó [=]
+                                if (boto == "=") {
+                                    // Com que l'eval pot donar error, posem un bloc try..catch
+                                    try {
+                                        // Amb la funció eval avaluem l'expressió de la pantalla
+                                        $("pantalla").value = eval($("pantalla").value)
+                                    }
+                                    catch {
+                                        // En cas d'expressió no vàlida, mostrem un missatge d'error
+                                        $("pantalla").value = "ERROR"
+                                    }
+                                }
+                                else {
+                                    // Per qualsevol altre botó (operacions o números)...
+
+                                    // si hi havia un 0 al davant, el traiem per no arrossegar-lo...
+                                    if ($("pantalla").value == "0") {
+                                        $("pantalla").value = ""
+                                    }
+
+                                    // i finalment l'escrivim directament afegint-lo al final de la cadena
+                                    $("pantalla").value += boto
+                                }
+                            }
+        }
+    </script>
+</body>
+
+</html>

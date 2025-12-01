@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemple de variables d'àmbit</title>
+</head>
+<body>
+  <h1>Exemple de variables d'àmbit</h1>
+  <p>Obre la consola del navegador per veure els resultats</p>
+  <p>Per a cada variable es mostra el seu valor dins i fora de la funció</p>
+  <h1>Exemple de conversió de variables</h1>
+  <input type="text" id="num1" placeholder="Introdueix un número">
+  <button onclick="convertir()">Convertir</button>
+  <script>
+    // Variables globals
+    let a = 1;
+    let b = 2;
+    const c = 3;
+    const d = 4;
+    var e = 5;
+    var f = 6;
+    mostrarVariables();
+    function mostrarVariables() {
+      // Variables locals
+      let a = 11;
+      b = 12;
+      const c = 13;
+      //d = 14; // Error: d es constant
+      var e = 15;
+      f = 16;
+      let g = 17;
+      const h = 18;
+
+      console.log("Dins de la funció:");
+      console.log("a = " + a);
+      console.log("b = " + b);
+      console.log("c = " + c);
+      console.log("d = " + d);
+      console.log("e = " + e);
+      console.log("f = " + f);
+    }
+
+    console.log("Fora de la funció:");
+    console.log("a = " + a);
+    console.log("b = " + b);
+    console.log("c = " + c);
+    console.log("d = " + d);
+    console.log("e = " + e);
+    console.log("f = " + f);
+    //console.log("g = " + g); // Error: g is not defined
+    //console.log("h = " + h); // Error: h is not defined
+  </script>
+  <script>
+    function convertir() {
+      let num1 = document.getElementById("num1").value;
+      let num2 = parseInt(num1);
+      let num3 = parseFloat(num1);
+      let num4 = Number(num1);
+      console.log("Dins de la funció convertir:");
+      console.log(isFinite(num1));
+      console.log(isNaN(num1));
+      console.log("El número introduït és: " + num1);
+      console.log("El número convertit a enter és: " + num2);
+      console.log("El número convertit a decimal és: " + num3);
+      console.log("El número convertit a Number és: " + num4);
+    }
+
+  </script>
+</body>
+</html>

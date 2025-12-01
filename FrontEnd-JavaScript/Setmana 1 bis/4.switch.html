@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <title>Exemple Switch</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <h1>Selecciona un color</h1>
+  <select id="colorSelector">
+    <option value="roig">red</option>
+    <option value="verd">green</option>
+    <option value="blau">blue</option>
+    <option value="groc">yellow</option>
+  </select>
+
+
+    <script>
+      document.getElementById("colorSelector").onchange = canviarColor;
+      
+      function canviarColor() {
+        let color = this.value;
+  
+        // Alternativa a if-else amb switch
+        switch (color) {
+          case "roig":
+            document.body.style.backgroundColor = "red";
+            break;
+          case "verd":
+            document.body.style.backgroundColor = "green";
+            break;
+          case "blau":
+            document.body.style.backgroundColor = "blue";
+            break;
+          case "groc":
+            document.body.style.backgroundColor = "yellow";
+            break;
+          default:
+            document.body.style.backgroundColor = "white";
+        }
+      }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <title>Exemple botó i setInterval</title>
+    <meta charset="UTF-8">
+    <style>
+        #boto1 {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            font-size: 60pt;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="boto1">0</button>
+    <button id="atura">ATURA</button>
+    <script>
+        // Comptador de clics
+        let clics = 0;
+
+        // Clicant el botó incrementem el comptador i posem el número dins del botó
+        document.getElementById("boto1").onclick = function () {
+            this.innerHTML = ++clics;
+        };
+
+        // Aquest botó fa que es deixi de moure el botó aturant el setInterval
+        document.getElementById("atura").onclick = function () {
+            clearInterval(tempsJoc);
+        };
+
+        // Creem un temporitzador lligat a una funció anònima, li assignem una variable
+        // perquè ens fa falta per poder aturar-lo amb un clearInterval
+        const tempsJoc = setInterval(function () {
+            // Agafem unes coordenades x,y aleatòries que quedin sempre dins la finestra
+            let x = Math.round(Math.random() * (window.innerWidth - 100));
+            let y = Math.round(Math.random() * (window.innerHeight - 100));
+
+            // Escrivim a la consola el valor de les variables per comprovar-los
+            console.log(x + " , " + y);
+
+            // Modifiquem l'estil (CSS) del botó per canviar la seva posició
+            document.getElementById("boto1").style.left = x + "px";
+            document.getElementById("boto1").style.top = y + "px";
+        }, 750);
+
+        // Creem un temporitzador que s'executarà una sola vegada
+        setTimeout(function () {
+            // Comprovem la condició per guanyar o perdre
+            if (clics < 5) {
+                alert("Has perdut");
+            }
+            else {
+                alert("Has guanyat");
+            }
+        }, 5000);
+    </script>
+</body>
+
+</html>

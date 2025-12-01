@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ca">
+	<head>
+		<title>Rellotge digital</title>
+	</head>
+	<body>
+		<h1>Rellotge digital</h1>
+		<font size="7"><p id="rellotge"></p></font>
+
+		<script>
+			function actualitzaHora()
+			{
+				// instanciem un objecte Date per obtenir la hora actual
+				const d = new Date();
+
+				// llegim en 3 variables la hora, minuts i segons
+				let hora = d.getHours();
+				let minut = d.getMinutes();
+				let segon = d.getSeconds();
+
+				// afegim un zero al davant per hores menors de 10
+				hora = hora < 10 ? "0" + hora : hora;
+				minut = minut < 10 ? "0" + minut : minut;
+				segon = segon < 10 ? "0" + segon : segon;
+
+				// fem aparèixer el separador de manera intermitent
+				sep = segon % 2 == 0 ? ":" : " ";
+
+				// creem la cadena completa amb la hora que volem mostrar
+				let horaActual = hora + sep + minut + sep + segon;
+
+				// escrivim la hora dins de l'element corresponent
+				document.getElementById("rellotge").innerHTML = horaActual;
+			}
+
+			// iniciem un interval per executar la funció cada segon (1000 mil·lisegons)
+			i = setInterval("actualitzaHora()", 1000);
+		</script>
+	</body>
+</html>

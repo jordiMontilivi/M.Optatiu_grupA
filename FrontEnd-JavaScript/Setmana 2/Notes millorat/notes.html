@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestió de Notes</title>
+  <link rel="stylesheet" href="notes.css">
+</head>
+
+<body>
+  <h1>Gestió de Notes dels Alumnes</h1>
+  <div class="formulari">
+    <label for="nom">Nom:</label>
+    <input type="text" id="nom" placeholder="Nom de l'alumne">
+
+    <label for="Cognoms">Cognoms:</label>
+    <input type="text" id="Cognoms" placeholder="Cognoms de l'alumne">
+
+    <label for="practica1">Pràctica 1:</label>
+    <input type="number" id="practica1" min="0" max="10">
+
+    <label for="practica2">Pràctica 2:</label>
+    <input type="number" id="practica2" min="0" max="10">
+
+    <label for="practica3">Pràctica 3:</label>
+    <input type="number" id="practica3" min="0" max="10">
+
+    <label for="examen1">Examen 1:</label>
+    <input type="number" id="examen1" min="0" max="10">
+
+    <label for="examen2">Examen 2:</label>
+    <input type="number" id="examen2" min="0" max="10">
+
+    <button onclick="guardarAlumno()">Següent</button>
+    <button onclick="finalizar()">Finalitzar</button>
+  </div>
+</body>
+
+</html>

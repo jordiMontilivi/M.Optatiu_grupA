@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Notas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .formulario {
+      margin-bottom: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .rojo {
+      background-color: #ff0000;
+      color: white;
+    }
+    .rojo-claro {
+      background-color: #ff6666;
+    }
+    .naranja {
+      background-color: #ffa500;
+    }
+    .amarillo {
+      background-color: #ffff00;
+    }
+    .verde-claro {
+      background-color: #99ff99;
+    }
+    .verde {
+      background-color: #00cc00;
+      color: white;
+    }
+    .azul {
+      background-color: #0000ff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gestión de Notas de Alumnos</h1>
+  <div class="formulario">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" placeholder="Nombre del alumno">
+    <label for="apellidos">Apellidos:</label>
+    <input type="text" id="apellidos" placeholder="Apellidos del alumno"><br><br>
+
+    <label for="practica1">Práctica 1:</label>
+    <input type="number" id="practica1" min="0" max="10">
+    <label for="practica2">Práctica 2:</label>
+    <input type="number" id="practica2" min="0" max="10">
+    <label for="practica3">Práctica 3:</label>
+    <input type="number" id="practica3" min="0" max="10"><br><br>
+
+    <label for="examen1">Examen 1:</label>
+    <input type="number" id="examen1" min="0" max="10">
+    <label for="examen2">Examen 2:</label>
+    <input type="number" id="examen2" min="0" max="10"><br><br>
+
+    <button onclick="guardarAlumno()">Siguiente</button>
+    <button onclick="finalizar()">Finalizar</button>
+  </div>
+
+  <div id="resultados"></div>
+  <div id="estadisticas"></div>
+
+  <script>
+    const alumnos = [];
+
+    function guardarAlumno() {
+      const nombre = document.getElementById('nombre').value;
+      const apellidos = document.getElementById('apellidos').value;
+      const practica1 = parseFloat(document.getElementById('practica1').value);
+      const practica2 = parseFloat(document.getElementById('practica2').value);
+      const practica3 = parseFloat(document.getElementById('practica3').value);
+      const examen1 = parseFloat(document.getElementById('examen1').value);
+      const examen2 = parseFloat(document.getElementById('examen2').value);
+
+      if (!nombre || !apellidos || isNaN(practica1) || isNaN(practica2) || isNaN(practica3) || isNaN(examen1) || isNaN(examen2)) {
+        alert('Por favor, completa todos los campos correctamente.');
+        return;
+      }
+
+      alumnos.push({ nombre, apellidos, practica1, practica2, practica3, examen1, examen2 });
+
+      // Limpiar formulario
+      document.getElementById('nombre').value = '';
+      document.getElementById('apellidos').value = '';
+      document.getElementById('practica1').value = '';
+      document.getElementById('practica2').value = '';
+      document.getElementById('practica3').value = '';
+      document.getElementById('examen1').value = '';
+      document.getElementById('examen2').value = '';
+    }
+
+    function finalizar() {
+      if (alumnos.length === 0) {
+        alert('No hay alumnos registrados.');
+        return;
+      }
+
+      const resultadosDiv = document.getElementById('resultados');
+      resultadosDiv.innerHTML = '<h2>Resultados</h2><table id="tabla-resultados"><tr><th>Nombre</th><th>Práctica 1</th><th>Práctica 2</th><th>Práctica 3</th><th>Examen 1</th><th>Examen 2</th><th>Nota Final</th><th>Comentario</th></tr></table>';
+
+      const tabla = document.getElementById('tabla-resultados');
+      let aprobados = 0;
+      let suspendidos = 0;
+      let sumaNotas = 0;
+      let notaMayor = 0;
+      let notaMenor = 10;
+
+      alumnos.forEach(alumno => {
+        const { nombre, apellidos, practica1, practica2, practica3, examen1, examen2 } = alumno;
+        const notaFinal = practica1 * 0.1 + practica2 * 0.15 + practica3 * 0.15 + examen1 * 0.25 + examen2 * 0.35;
+        let comentario = '';
+        let claseColor = '';
+
+        if (examen1 < 4 || examen2 < 4) {
+          claseColor = 'rojo-claro';
+          comentario = 'Lo sentimos, pero no superaste el mínimo por examen.';
+        } else if (notaFinal < 5) {
+          claseColor = 'rojo';
+          comentario = 'Suspendido';
+          suspendidos++;
+        } else if (notaFinal < 6) {
+          claseColor = 'amarillo';
+          comentario = 'Aprobado';
+          aprobados++;
+        } else if (notaFinal < 7) {
+          claseColor = 'verde-claro';
+          comentario = 'Bien';
+          aprobados++;
+        } else if (notaFinal < 9) {
+          claseColor = 'verde';
+          comentario = 'Notable';
+          aprobados++;
+        } else {
+          claseColor = 'azul';
+          comentario = 'Excelente';
+          aprobados++;
+        }
+
+        sumaNotas += notaFinal;
+        notaMayor = Math.max(notaMayor, notaFinal);
+        notaMenor = Math.min(notaMenor, notaFinal);
+
+        const fila = `<tr>
+          <td>${nombre} ${apellidos}</td>
+          <td class="${getColorClase(practica1)}">${practica1}</td>
+          <td class="${getColorClase(practica2)}">${practica2}</td>
+          <td class="${getColorClase(practica3)}">${practica3}</td>
+          <td class="${getColorClase(examen1)}">${examen1}</td>
+          <td class="${getColorClase(examen2)}">${examen2}</td>
+          <td class="${claseColor}">${notaFinal.toFixed(2)}</td>
+          <td>${comentario}</td>
+        </tr>`;
+
+        tabla.innerHTML += fila;
+      });
+
+      const media = sumaNotas / alumnos.length;
+      const estadisticasDiv = document.getElementById('estadisticas');
+      estadisticasDiv.innerHTML = `<h2>Estadísticas</h2>
+        <p>Alumnos aprobados: ${aprobados} (${((aprobados / alumnos.length) * 100).toFixed(2)}%)</p>
+        <p>Alumnos suspendidos: ${suspendidos} (${((suspendidos / alumnos.length) * 100).toFixed(2)}%)</p>
+        <p>Nota mayor: ${notaMayor.toFixed(2)}</p>
+        <p>Nota menor: ${notaMenor.toFixed(2)}</p>
+        <p>Nota media de la clase: ${media.toFixed(2)}</p>`;
+    }
+
+    function getColorClase(nota) {
+      if (nota < 2) return 'rojo';
+      if (nota < 4) return 'rojo-claro';
+      if (nota < 5) return 'naranja';
+      if (nota < 6) return 'amarillo';
+      if (nota < 7) return 'verde-claro';
+      if (nota < 9) return 'verde';
+      return 'azul';
+    }
+  </script>
+</body>
+</html>

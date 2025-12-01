@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proves de innerHTML</title>
+  <style>
+    div {
+      display: flex;
+      width: 100%;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="div1"></div>
+  <script>
+    const espai = document.getElementById("div1");
+    for (let i = 0; i < 10; i++) {
+      espai.innerHTML += `<button class='boto'>boto ${i + 1}</button>`;
+      document.querySelectorAll(".boto")[i].addEventListener("click", () => {
+        alert(`Has clicat el botó ${i + 1}`);
+      });
+    }
+  </script>
+  <!-- <script>
+    const espai = document.getElementById("div1");
+    for (let i = 0; i < 10; i++) {
+      espai.insertAdjacentHTML("beforeend", `<button class='boto'>boto ${i + 1}</button>`);
+      document.querySelectorAll(".boto")[i].addEventListener("click", () => {
+        alert(`Has clicat el botó ${i + 1}`);
+      });
+    }
+  </script> -->
+</body>
+
+</html>

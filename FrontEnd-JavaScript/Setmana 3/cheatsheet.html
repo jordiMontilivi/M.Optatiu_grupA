@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheatsheet JavaScript DOM</title>
+  <!-- Prism.js (tema fosc personalitzable) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .admonition {
+      border-radius: 6px;
+      border: 1px solid #bfd6ff;
+      padding: 0;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .admonition-title {
+      padding: 8px 12px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .admonition-content {
+      padding: 12px;
+    }
+
+    .note {
+      background-color: #e8f0fe;
+    }
+
+    .note .admonition-title {
+      background-color: #4285f4;
+    }
+
+    .info {
+      background-color: #e8f6f3;
+    }
+
+    .info .admonition-title {
+      background-color: #00bfa5;
+    }
+
+    pre {
+      background-color: #2d2d2d;
+      color: #ccc;
+      padding: 12px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-family: "Fira Code", monospace;
+      font-size: 14px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      white-space: pre-wrap;
+    }
+
+    pre span.keyword {
+      color: #c792ea;
+    }
+
+    pre span.string {
+      color: #ecc48d;
+    }
+
+    pre span.function {
+      color: #82aaff;
+    }
+
+    pre span.variable {
+      color: #f07178;
+    }
+
+    pre span.comment {
+      color: #546e7a;
+      font-style: italic;
+    }
+
+    code {
+      font-family: "Fira Code", monospace;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    /* Reduir lleugerament la mida del codi JavaScript */
+    pre code.language-javascript {
+      font-size: 0.85em;
+      /* lleugerament més petit que la mida normal */
+    }
+
+    /* Recuadre tipus "codi" amb fons groc clar */
+    .admonition-content p span.js-keyword code.language-javascript {
+      background-color: #fff9c4 !important;
+      font-weight: bold;
+      /* fons groc clar */
+      border-radius: 4px;
+      padding: 0px 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Cheatsheet de JavaScript DOM</h1>
+
+  <div class="container">
+
+    <div class="column">
+      <div class="admonition note">
+        <div class="admonition-title">Sel·lecció d'elements del DOM</div>
+        <div class="admonition-content">
+          <h4>1. Mètodes per seleccionar elements del DOM</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">getElementById()</code></span>: Retorna el
+                primer element amb l'ID especificat.</p>
+              <pre><code class="language-javascript">const element = document.getElementById("elMeuElement");</code></pre>
+            </li>
+            <li>
+              <P><span class="js-keyword"><code class="language-javascript">getElementsByClassName()</code></span>:
+                Retorna tots els
+                elements amb una classe.</P>
+              <pre><code class="language-javascript">const elements = document.getElementsByClassName("laMeuaClasse");</code></pre>
+            </li>
+            <li>
+              <P><span class="js-keyword"><code class="language-javascript">getElementsByTagName()</code></span>:
+                Retorna elements
+                d'una etiqueta concreta.</P>
+              <pre><code class="language-javascript">const elements = document.getElementsByTagName("div");</code></pre>
+            </li>
+            <li>
+              <P><span class="js-keyword"><code class="language-javascript">querySelector()</code></span>: Retorna el
+                primer element
+                que coincideixi amb el
+                selector.</P>
+              <pre><code class="language-javascript">const element = document.querySelector(".laMeuaClasse");</code></pre>
+            </li>
+            <li>
+              <P><span class="js-keyword"><code class="language-javascript">querySelectorAll()</code></span>: Retorna
+                tots els
+                elements que coincideixen.</P>
+              <pre><code class="language-javascript">const elements = document.querySelectorAll("p.laMeuaClasse");</code></pre>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="admonition note">
+        <div class="admonition-title">Esdeveniments</div>
+        <div class="admonition-content">
+          <h4>Assignar esdeveniments als elements (de pitjor a millor)</h4>
+          <ul>
+            <li>
+              <p><b>Atribut onclick en HTML</b></p>
+              <pre><code class="language-html">&lt;button onclick="alert('Has fet clic!')"&gt;Fes clic aquí&lt;/button&gt;</code></pre>
+            </li>
+            <li>
+              <p>element<span class="js-keyword"><code class="language-javascript">.onclick</code></span> = funció
+              </p>
+              <pre><code class="language-javascript">button.onclick = function () {
+  alert("Has fet clic!");
+};</code></pre>
+            </li>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">addEventListener()</code></span> (la forma
+                recomanada)</p>
+              <pre><code class="language-javascript">button.addEventListener("click", () => {
+  alert("Has fet clic!");
+});
+
+button.addEventListener("mouseover", () => {
+  console.log("Ratolí per damunt");
+});</code></pre>
+            </li>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">addEventListener()</code></span> (la forma
+                recomanada)</p>
+              <pre><code class="language-javascript">button.addEventListener("click", () => {
+  alert("Has fet clic!");
+});
+
+button.addEventListener("mouseover", () => {
+  console.log("Ratolí per damunt");
+});</code></pre>
+            </li>
+          </ul>
+          <div class="admonition info">
+            <div class="admonition-title">Esdeveniments més comuns</div>
+            <div class="admonition-content">
+              <ul>
+                <li><b>click</b>: Quan l'usuari fa clic en un element.</li>
+                <li><b>mouseover</b>: Quan el ratolí passa per sobre d’un element.</li>
+                <li><b>mouseout</b>: Quan el ratolí surt d’un element.</li>
+                <li><b>keydown</b>: Quan es prem una tecla.</li>
+                <li><b>keyup</b>: Quan es deixa anar una tecla.</li>
+                <li><b>submit</b>: Quan es fa un enviament de formulari.</li>
+                <li><b>focus</b>: Quan un element obté el focus.</li>
+                <li><b>blur</b>: Quan un element perd el focus.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admonition note">
+        <div class="admonition-title">Manipulació del contingut del DOM</div>
+        <div class="admonition-content">
+
+          <h4>1. Afegir elements al DOM</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">innerHTML</code></span>: Permet obtenir o
+                establir el contingut HTML d'un element. També es poden afegir elements al DOM amb aquest mètode. </p>
+              <pre><code class="language-javascript">const div = document.querySelector("#elMeuDiv");
+div.innerHTML = "<p>Nou contingut</p>";</code></pre>
+            </li>
+
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">createElement()</code></span>: Crea un nou
+                element HTML amb un tipus específic.</p>
+              <pre><code class="language-javascript">const nouElement = document.createElement("div");
+nouElement.textContent = "Sóc un nou div";</code></pre>
+            </li>
+
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">appendChild()</code></span>: Afegeix un node
+                com a fill d'un element específic.</p>
+              <pre><code class="language-javascript">const pare = document.querySelector("#pare");
+pare.appendChild(nouElement);</code></pre>
+            </li>
+
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">insertBefore()</code></span>: Insereix un
+                node abans d’un altre dins del mateix element pare.</p>
+              <pre><code class="language-javascript">const germà = document.querySelector("#germà");
+pare.insertBefore(nouElement, germà);</code></pre>
+            </li>
+          </ul>
+
+          <h4>2. Moure elements al DOM</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code
+                    class="language-javascript">appendChild() o insertBefore()</code></span>: També es pot
+                utilitzar per moure un element existent. En comptes de crear-lo
+                nou, cal seleccionar-lo i afegir-lo a una nova posició.</p>
+              <pre><code class="language-javascript">const elementAMoure = document.querySelector("#elementAMoure");
+const nouPare = document.querySelector("#nouPare");
+nouPare.appendChild(elementAMoure);</code></pre>
+            </li>
+          </ul>
+
+          <h4>3. Eliminar elements del DOM</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">remove()</code></span>: Elimina un node
+                del DOM.</p>
+              <pre><code class="language-javascript">const element = document.querySelector("#elMeuElement");
+element.remove();</code></pre>
+            </li>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">removeChild()</code></span>: Elimina un node
+                fill d'un element pare.</p>
+              <pre><code class="language-javascript">const fill = document.querySelector("#fill");
+pare.removeChild(fill);</code></pre>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="admonition note">
+        <div class="admonition-title">Selecció dels fills d'un element</div>
+        <div class="admonition-content">
+
+          <h4>1. Primer fill (firstChild / firstElementChild)</h4>
+
+          <p>El mètode firstChild retorna el primer node fill d’un element. Atenció: aquest mètode pot retornar
+            qualsevol tipus de node, inclòs un node de text (si l'element conté espais en blanc o salt de línia). Si
+            només vols l'element HTML (no nodes de text o comentaris), has d'utilitzar firstElementChild.</p>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">firstChild </code></span>: retorna qualsevol
+                node (text, comentari, element).</p>
+              <pre><code class="language-javascript">const pare = document.getElementById("contenidor");
+const primerFill = pare.firstChild;</code></pre>
+            </li>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">firstElementChild</code></span>
+                Retorna el primer element fill (exclou nodes de text i comentaris).</p>
+
+              <pre><code class="language-javascript">const primerFillElement = pare.firstElementChild;</code></pre>
+            </li>
+          </ul>
+
+          <h4>2. Últim fill (lastChild / lastElementChild)</h4>
+          <p>El mètode lastChild retorna l'últim node fill d’un element. Igual que firstChild, pot ser un node de text o
+            un altre tipus de node. Per evitar nodes no desitjats, utilitza lastElementChild.</p>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">lastChild</code></span>: Retorna l'últim
+                node fill (pot ser un node de text, un element, etc.).</p>
+              <pre><code class="language-javascript">const ultimFill = pare.lastChild;</code></pre>
+            </li>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">lastElementChild</code></span>: Retorna
+                l'últim element fill (exclou nodes de text i comentaris).</p>
+              <pre><code class="language-javascript">const ultimFillElement = pare.lastElementChild;</code></pre>
+            </li>
+          </ul>
+
+          <h4>3. Número de fills</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">childElementCount</code></span> retorna el
+                nombre d'elements fills d’un element (exclou nodes de text i
+                comentaris).</p>
+              <pre><code class="language-javascript">const nombreDeFills = pare.childElementCount;</code></pre>
+            </li>
+          </ul>
+          <h4>4. Accedir als fills amb children</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">children</code></span>: Retorna una
+                col·lecció en viu (live collection) de tots els fills de l'element que siguin nodes d'element (exclou
+                text i comentaris).</p>
+              <pre><code class="language-javascript">const fills = pare.children;</code></pre>
+            </li>
+          </ul>
+
+          <h4>5. Accedir amb childNodes</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">childNodes</code></span>: Retorna una
+                col·lecció de tots els fills de l'element, incloent-hi nodes de text, nodes de comentaris, etc.</p>
+              <pre><code class="language-javascript">const fillsNode = pare.childNodes;</code></pre>
+            </li>
+          </ul>
+          <h4>6. Accedir amb nth-child (CSS)</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">nth-child()</code></span>: És un selector
+                CSS que pots utilitzar amb querySelector() per seleccionar un fill en base a la seva posició.</p>
+              <pre><code class="language-javascript">const tercerFill = document.querySelector("#contenidor p:nth-child(3)");</code></pre>
+              <p>A aquest exemple es selecciona el tercer p dins del contenedor amb id="contenidor".</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="admonition note">
+        <div class="admonition-title">Modificació del atributs i propietats dels elements</div>
+        <div class="admonition-content">
+
+          <h4>1. Modificació de l'atribut amb setAttribute() i getAttribute()</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">setAttribute()</code></span>: Estableix un
+                valor per a un atribut d’un element.</p>
+              <pre><code class="language-javascript">const element = document.getElementById("elMeuBoto");
+element.setAttribute("class", "nouBoton");</code></pre>
+            </li>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">getAttribute()</code></span>: Obté el valor
+                d’un atribut d’un element.</p>
+              <pre><code class="language-javascript">const element = document.getElementById("elMeuBoto");
+const classe = element.getAttribute("class");
+console.log(classe); </code></pre>
+            </li>
+          </ul>
+
+          <h4>2. Modificar l'estil amb style</h4>
+          <p>Per modificar l'estil CSS d'un element, pots utilitzar la propietat style per accedir als atributs CSS
+            directament.</p>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">style.cssAttribute</code></span>: Permet
+                modificar l'estil CSS d’un element directament des de JavaScript.</p>
+              <pre><code class="language-javascript">const element = document.getElementById("elMeuBoto");
+element.style.color = "red"; // Canvia el color a vermell
+element.style.fontSize = "20px"; // Canvia la mida de la font</code></pre>
+            </li>
+          </ul>
+          <h4>3. Manipulació de classes amb classList</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">classList.add()</code></span>: Afegeix una
+                classe a l'element.</p>
+              <pre><code class="language-javascript">element.classList.add("nouBoto");</code></pre>
+            </li>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">classList.remove()</code></span>: Elimina
+                una classe de l'element.</p>
+              <pre><code class="language-javascript">element.classList.remove("nouBoto");</code></pre>
+            </li>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">classList.toggle()</code></span>: Afegeix la
+                classe si no existeix, o la elimina si ja existeix.</p>
+              <pre><code class="language-javascript">element.classList.toggle("visible");</code></pre>
+            </li>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">classList.contains()</code></span>: Comprova
+                si l'element té una classe específica.</p>
+              <pre><code class="language-javascript">const teClasse = element.classList.contains("nouBoto");
+console.log(teClasse); // Retorna true o false</code></pre>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="admonition note">
+        <div class="admonition-title">Funcions en JavaScript</div>
+        <div class="admonition-content">
+
+          <h4>1. Funció normal: Funció amb nom que es pot cridar diverses vegades i des de qualsevol lloc del codi.</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">function nomFuncio()</code></span>: Defineix
+                una funció
+                amb nom.</p>
+              <pre><code class="language-javascript">function saludar() {
+  alert("Hola!");
+}</code></pre>
+            </li>
+          </ul>
+          <h4>2. Funció anònima: Funció sense nom, s’utilitza sovint en callbacks. Bàsicament agrupa el codi quan es
+            produeix un esdeveniment.</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">const nomFuncio = function()</code></span>:
+                Assigna una funció anònima a una variable.</p>
+              <pre><code class="language-javascript">const saludar = function () {
+  alert("Hola!");
+};</code></pre>
+            </li>
+          </ul>
+          <h4>3. Funció fletxa (arrow function): Sintaxi més curta per definir funcions anònimes. No té el seu propi
+            this.</h4>
+          <ul>
+            <li>
+              <p><span class="js-keyword"><code class="language-javascript">const nomFuncio = () => {}</code></span>:
+                Defineix una funció fletxa.</p>
+              <pre><code class="language-javascript">document.getElementById("button").addEventListener("click", () => alert("Hola!"));</code></pre>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div> <!-- container -->
+
+    <!-- Més seccions: Modificació d'atributs, Funcions JavaScript, etc. es poden afegir amb el mateix estil dins les columnes -->
+
+</body>
+
+</html>

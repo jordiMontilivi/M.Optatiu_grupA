@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Esdeveniments del ratolí</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			margin: 0;
+		}
+
+		button {
+			margin-left: 1em;
+			margin-top: 30px;
+		}
+
+		.zonaTest {
+			width: 80px;
+			height: 80px;
+			border: 1px solid black;
+			background-color: deepskyblue;
+			box-sizing: border-box;
+			float: left;
+		}
+
+		.vermell {
+			background-color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="zonaTest" id="zona1"></div>
+	<button id="boto">Fes clic per alternar la classe CSS</button>
+	<script>
+		document.getElementById("boto").onclick = function () {
+			document.getElementById("zona1").classList.toggle("vermell")
+		}
+	</script>
+</body>
+
+</html>

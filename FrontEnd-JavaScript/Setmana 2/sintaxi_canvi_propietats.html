@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvi de propietats d'elements</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 2em;
+        }
+
+        li {
+            font-size: 1.5em;
+            margin-top: 0.5em;
+        }
+
+        #codiJS {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #msgClic {
+            color: grey;
+            font-size: 0.65em;
+            position: relative;
+            top: -3em;
+            left: 7.5em;
+        }
+
+        #temps {
+            width: 200px;
+            padding: 1em 2em;
+            color: black;
+            border-radius: 1em;
+            border: 4px solid grey;
+            background-position: 0 -20px;
+            text-align: center;
+            cursor: pointer;
+            margin: 2em 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Amb JavaScript podem canviar propietats</h1>
+    <ul>
+        <li>dels elements HTML</li>
+        <li>dels seus estils</li>
+    </ul>
+
+    <div id="temps" onclick="canviaTemps()">
+        <h3 id="titol">Previsió del temps</h3>
+        <img alt="" id="imatge">
+    </div>
+    <span id="msgClic">Clica la imatge per canviar</span>
+    <p id="codiJS"></p>
+
+    <script>
+        // Funció d'ajuda per seleccionar objectes
+        // Aquesta funció és un "alias" per accedir als elements del DOM per ID de manera ràpida. Per exemple:
+        // $("imatge") és equivalent a document.getElementById("imatge").
+
+        function $(e) { return document.getElementById(e) }
+
+        let estaPlovent = true
+
+        function canviaTemps() {
+            // Cada cop que invoquem la funció canviarem entre pluja o no 
+            estaPlovent = !estaPlovent
+
+            if (estaPlovent) {
+                // Bloc d'estils per quan està plovent
+                $("imatge").src = "../../media/weather/10d.png"
+                $("titol").style.color = "white"
+
+                // Fons de pantalla que combina un GIF animat transparent (pluja) amb un fons de color
+                $("temps").style.background = "url('../../media/rain.gif') 0px -4px, darkblue"
+            }
+            else {
+                // Bloc d'estils per quan no plou
+                $("imatge").src = "../../media/weather/02d.png"
+                $("titol").style.color = "black"
+                $("temps").style.background = "linear-gradient(to bottom, white, lightblue, deepskyblue)"
+            }
+
+            // Mostrem els estils per pantalla
+            escriuValors()
+        }
+
+        function escriuValors() {
+            // Per simplificar, només voldrem mostrar la part final del path de les imatges            
+            let path = $("imatge").src.split('/')
+
+            // Amb el delimitador ` podem crear strings de múltiples línies
+            $("codiJS").innerHTML = `
+            <p>text.<b>style</b>.<b>color</b> = "${$("titol").style.color}"</p>
+            <p>fons.<b>style</b>.<b>background</b> = "${$("temps").style.background}"</p>
+            <p>imatge.<b>src</b> = "media/weather/${path[path.length - 1]}"</p>
+            `
+        }
+
+        canviaTemps()
+        escriuValors()
+    </script>
+</body>
+
+</html>

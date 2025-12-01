@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ca">
+	<head>
+		<title>Validació de cadenes</title>
+		<script>
+			function comprovarEmail(msg)
+			{
+				const email = document.getElementById("email").value;
+
+				if (email.length == 0)
+				{
+					msg.innerHTML = "No has escrit cap adreça!";
+				}
+				else
+				if (email.charAt(0)=='@')
+				{
+					msg.innerHTML = "Adreça de correu sense nom d'usuari";
+				}
+				else
+				if (email.indexOf('@') == -1)
+				{
+					msg.innerHTML = "Adreça de correu incorrecta, falta la @";
+				}
+				else
+				if (email.indexOf('.') == -1)
+				{
+					msg.innerHTML = "Adreça de correu sense domini vàlid";
+				}
+				else
+				{
+					msg.innerHTML = "Compleix els requisits";
+				}
+			}
+		</script>
+	</head>
+	<body onLoad="email.focus();">
+		<h1>Validació de cadenes</h1>
+		<h3>Introdueix una adreça de correu vàlida</h3>
+		<input type="text" id="email"><br>
+		<input type="button" value="Comprova l'adreça" onClick="comprovarEmail(missatge);"><br>
+		<span id="missatge"></span>
+	</body>
+</html>

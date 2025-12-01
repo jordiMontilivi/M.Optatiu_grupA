@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pràctica DOM</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Fitxer extern JavaScript -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <h1 id="titolPrincipal">Benvinguts a la pràctica del DOM</h1>
+        <nav>
+            <ul>
+                <li><a href="#" id="navInici">Inici</a></li>
+                <li><a href="#" id="navArticles">Articles</a></li>
+                <li><a href="#" id="navContacte">Contacte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="seccioInfo">
+            <p class="text">Aquest és un text inicial perquè practiqueu selectors.</p>
+            <p class="text destacat">Un altre paràgraf per manipular classes, estils i contingut.</p>
+            <button id="botoCanviText">Canvia el text</button>
+        </section>
+
+        <section id="seccioArticles">
+            <h2>Llista d'articles</h2>
+
+            <article class="articleItem">
+                <h3 class="titolArticle">Article 1</h3>
+                <p>Lorem ipsum dolor sit amet.</p>
+                <button class="btnMostra">Mostra via JS</button>
+            </article>
+
+            <article class="articleItem">
+                <h3 class="titolArticle">Article 2</h3>
+                <p>Contingut de l’article 2.</p>
+                <button class="btnMostra">Mostra via JS</button>
+            </article>
+
+            <article class="articleItem">
+                <h3 class="titolArticle">Article 3</h3>
+                <p>Contingut de l’article 3.</p>
+                <button class="btnMostra">Mostra via JS</button>
+            </article>
+
+        </section>
+
+        <aside id="barraLateral">
+            <h4>Barra lateral</h4>
+            <ul id="llistaLateral">
+                <li class="itemLateral">Element 1</li>
+                <li class="itemLateral">Element 2</li>
+                <li class="itemLateral">Element 3</li>
+            </ul>
+            <button id="afegirElement">Afegir element</button>
+        </aside>
+
+        <section id="seccioImatge">
+            <h2>Imatge d'exemple</h2>
+            <img id="imatgeExemple" src="https://via.placeholder.com/250" alt="Imatge de prova">
+            <button id="canviarImatge">Canvia la imatge</button>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Classe de Programació Web</p>
+        <span id="footerInfo">Peu de pàgina editable des de JavaScript</span>
+    </footer>
+
+</body>
+</html>

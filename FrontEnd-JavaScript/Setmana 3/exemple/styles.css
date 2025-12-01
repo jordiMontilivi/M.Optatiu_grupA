@@ -1,0 +1,55 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header,
+footer {
+  background-color: #2c3e50;
+  color: white;
+  padding: 15px;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+a {
+  color: white;
+}
+
+main {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+section,
+article,
+aside {
+  background: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.articleItem {
+  margin-bottom: 15px;
+}
+
+.btnMostra {
+  margin-top: 10px;
+}
+
+.destacat {
+  font-weight: bold;
+  color: darkred;
+}
+
+#seccioImatge img {
+  display: block;
+  margin-bottom: 10px;
+}

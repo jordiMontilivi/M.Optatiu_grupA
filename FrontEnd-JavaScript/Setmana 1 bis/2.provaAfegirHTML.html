@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang=ca>
+
+<head>
+  <title>prova afegir element html</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta>
+</head>
+
+<body>
+  <div id="div1">
+    <h1>Titul Inicial</h1>
+    <p>Text Inicial</p>
+  </div>
+  <script>
+    // Provem una forma d'afegir elements HTML dinàmicament a la pàgina. 
+    // Aquesta no es la millor forma d'afegir elements, però és vàlida per a fer proves senzilles.
+
+    // En esta sessió de classe vorem formes millors d'afegir elements HTML dinàmicament. (ex: createElement, appendChild, etc)
+
+    // Seleccionem el div pare on afegirem el nou element
+    divParent = document.getElementById('div1');
+    // Afegim un nou element HTML dins del div1 (+=)
+    divParent.innerHTML += '<div id="div2"><h1>Títol nou Creat dinàmicament</h1><p>Text nou creat dinàmicament</p></div>';
+  </script>
+</body>
+
+</html>

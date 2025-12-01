@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exemple</title>
+  <style>
+    body,
+    input {
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    input,
+    .operadors {
+      text-align: center;
+      font-size: 8em;
+      color: black;
+    }
+
+    .numero {
+      width: 150px;
+      height: 150px;
+      border: 4px solid black;
+    }
+
+    #btComprovar {
+      font-size: 2em;
+      border: 4px solid black;
+      padding: 0.25em 1em;
+      border-radius: 100px;
+      cursor: pointer;
+    }
+
+    #captcha {
+      margin-top: 5em;
+      text-align: center;
+    }
+
+    #botonera {
+      margin-top: 3em;
+      text-align: center;
+    }
+
+    #resultat {
+      margin-top: 1em;
+      font-size: 2em;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="captcha">
+    <label>Resol el següent càlcul:</label><br />
+    <input class="numero" disabled type="number" id="num1" />
+    <span class="operadors" id="operacio"></span>
+    <input class="numero" disabled id="num2" />
+    <span class="operadors">=</span>
+    <input class="numero" id="num3" />
+  </div>
+  <div id="botonera">
+    <button id="btComprovar">Comprova</button>
+  </div>
+  <div id="resultat"></div>
+  <script>
+    function $(e) {
+      return document.getElementById(e);
+    }
+
+    // llista de possibles operacions pel captcha
+    var ops = ["+", "-", "x"];
+
+    // triem una operació de l'array a l'atzar
+    var op_idx = Math.floor(Math.random() * ops.length);
+    var op = ops[op_idx];
+
+    // triem dos operadors a l'atzar (valors entre 1 i 9)
+    var num1 = Math.floor(Math.random() * 9) + 1;
+    var num2 = Math.floor(Math.random() * 9) + 1;
+
+    // calculem el resultat correcte en funció de l'operació
+    let resultat_correcte;
+    switch (op_idx) {
+      case 0:
+        resultat_correcte = num1 + num2;
+        break;
+      case 1:
+        resultat_correcte = num1 - num2;
+        break;
+      case 2:
+        resultat_correcte = num1 * num2;
+        break;
+    }
+
+    // escrivim en pantalla els operadors i la operació
+    // per els elements input amb "value"
+    // per els elements span amb "innerHTML"
+    $("num1").value = num1;
+    $("num2").value = num2;
+    $("operació").innerHTML = op;
+
+    // en fer clic al botó comprovem si el resultat és correcte
+    // utilitzem una funció anònima ja que no la invocarem enlloc més del codi
+    $("btComprovar").onclick = function () {
+      // mostrem un text en funció de si el resultat és correcte o no
+      if ($("num3").value == resultat_correcte) {
+        $("resultat").innerHTML = "CORRECTE!";
+      } else {
+        $("resultat").innerHTML = "INCORRECTE";
+      }
+    };
+
+    // donem el focus a l'input "num3" perquè l'usuari pugui escriure
+    // sense haver de clicar-hi primer
+    $("num3").focus();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS DOM Cheatsheet</title>
+
+  <!-- Prism.js (tema fosc personalitzable) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* Admonitions */
+    .admonition {
+      border-left: 6px solid #2a66b8;
+      background-color: #d7e5ff;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .admonition-title {
+      background-color: #2a66b8;
+      color: white;
+      padding: 10px 14px;
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    .admonition-content {
+      padding: 14px 16px;
+    }
+
+    .js-keyword {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background-color: #ffedb0;
+      /* tonalitat lleugerament més intensa */
+      font-weight: bold;
+      margin-right: 4px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    pre[class*="language-"] {
+      margin: 0;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Cheatsheet de JavaScript DOM</h1>
+  <div class="container">
+
+    <!-- ================= SEL·LECCIÓ D'ELEMENTS ================= -->
+    <div class="admonition">
+      <div class="admonition-title">Sel·lecció d'elements del DOM</div>
+      <div class="admonition-content">
+
+        <h4>1. Mètodes per seleccionar elements del DOM</h4>
+
+        <ul>
+          <li>
+            <P><span class="js-keyword">getElementById()</span>: Retorna el primer element amb l'ID especificat.</P>
+            <pre><code class="language-javascript">const element = document.getElementById("elMeuElement");</code></pre>
+          </li>
+          <li>
+            <P><span class="js-keyword">getElementsByClassName()</span>: Retorna tots els elements amb una classe.</P>
+            <pre><code class="language-javascript">const elements = document.getElementsByClassName("laMeuaClasse");</code></pre>
+          </li>
+          <li>
+            <P><span class="js-keyword">getElementsByTagName()</span>: Retorna elements d'una etiqueta concreta.</P>
+            <pre><code class="language-javascript">const elements = document.getElementsByTagName("div");</code></pre>
+          </li>
+          <li>
+            <P><span class="js-keyword">querySelector()</span>: Retorna el primer element que coincideixi amb el
+              selector.</P>
+            <pre><code class="language-javascript">const element = document.querySelector(".laMeuaClasse");</code></pre>
+          </li>
+          <li>
+            <P><span class="js-keyword">querySelectorAll()</span>: Retorna tots els elements que coincideixen.</P>
+            <pre><code class="language-javascript">const elements = document.querySelectorAll("p.laMeuaClasse");</code></pre>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ================= ESDEVENIMENTS ================= -->
+    <div class="admonition">
+      <div class="admonition-title">Esdeveniments</div>
+      <div class="admonition-content">
+
+        <h4>Assignar esdeveniments als elements (de pitjor a millor)</h4>
+
+        <p><b>Atribut onclick en HTML</b></p>
+        <pre><code class="language-html">&lt;button onclick="alert('Has fet clic!')"&gt;Fes clic aquí&lt;/button&gt;</code></pre>
+
+        <p><b>element.onclick = funció</b></p>
+        <pre><code class="language-javascript">button.onclick = function () {
+  alert("Has fet clic!");
+};</code></pre>
+
+        <p><b>addEventListener()</b> (la forma recomanada)</p>
+        <pre><code class="language-javascript">button.addEventListener("click", () => {
+  alert("Has fet clic!");
+});
+
+button.addEventListener("mouseover", () => {
+  console.log("Ratolí per damunt");
+});</code></pre>
+
+        <!-- SUB-ADMONITION: ESDEVENIMENTS MÉS COMUNS -->
+        <div class="admonition" style="margin-top:15px;">
+          <div class="admonition-title">Esdeveniments més comuns</div>
+          <div class="admonition-content">
+            <ul>
+              <li>mouseover: Quan el ratolí passa per sobre d’un element.</li>
+              <li>mouseout: Quan el ratolí surt d’un element.</li>
+              <li>keydown: Quan es prem una tecla.</li>
+              <li>keyup: Quan es deixa anar una tecla.</li>
+              <li>submit: Quan es fa un enviament de formulari.</li>
+              <li>focus: Quan un element obté el focus.</li>
+              <li>blur: Quan un element perd el focus.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= MANIPULACIÓ DEL DOM ================= -->
+    <div class="admonition">
+      <div class="admonition-title">Manipulació del contingut del DOM</div>
+      <div class="admonition-content">
+
+        <h4>Afegir elements</h4>
+        <pre><code class="language-javascript">div.innerHTML = "&lt;p&gt;Nou contingut&lt;/p&gt;";</code></pre>
+
+        <pre><code class="language-javascript">const nouElement = document.createElement("div");
+nouElement.innerHTML = "Sóc un nou div";</code></pre>
+
+        <pre><code class="language-javascript">pare.appendChild(nouElement);</code></pre>
+
+        <pre><code class="language-javascript">pare.insertBefore(nouElement, germa);</code></pre>
+
+        <h4>Moure elements</h4>
+        <pre><code class="language-javascript">nouPare.appendChild(elementAMoure);</code></pre>
+
+        <h4>Eliminar elements</h4>
+        <pre><code class="language-javascript">element.remove();</code></pre>
+        <pre><code class="language-javascript">pare.removeChild(fill);</code></pre>
+
+      </div>
+    </div>
+
+    <!-- ================= FILLS ================= -->
+    <div class="admonition">
+      <div class="admonition-title">Selecció dels fills d'un element</div>
+      <div class="admonition-content">
+
+        <h4>Primer fill</h4>
+        <pre><code class="language-javascript">pare.firstChild;</code></pre>
+        <pre><code class="language-javascript">pare.firstElementChild;</code></pre>
+
+        <h4>Últim fill</h4>
+        <pre><code class="language-javascript">pare.lastChild;</code></pre>
+        <pre><code class="language-javascript">pare.lastElementChild;</code></pre>
+
+        <h4>Nombre de fills</h4>
+        <pre><code class="language-javascript">pare.childElementCount;</code></pre>
+
+        <h4>children</h4>
+        <pre><code class="language-javascript">pare.children;</code></pre>
+
+        <h4>childNodes</h4>
+        <pre><code class="language-javascript">pare.childNodes;</code></pre>
+
+        <h4>nth-child()</h4>
+        <pre><code class="language-javascript">document.querySelector("#contenidor p:nth-child(3)");</code></pre>
+
+      </div>
+    </div>
+
+    <!-- ================= ATRIBUTS ================= -->
+    <div class="admonition">
+      <div class="admonition-title">Modificació d'atributs</div>
+      <div class="admonition-content">
+
+        <h4>setAttribute i getAttribute</h4>
+        <pre><code class="language-javascript">element.setAttribute("class", "nouBotó");</code></pre>
+        <pre><code class="language-javascript">element.getAttribute("class");</code></pre>
+
+        <h4>Modificar l'estil</h4>
+        <pre><code class="language-javascript">element.style.color = "red";</code></pre>
+
+        <h4>classList</h4>
+        <pre><code class="language-javascript">element.classList.add("nouBoto");</code></pre>
+        <pre><code class="language-javascript">element.classList.remove("nouBoto");</code></pre>
+        <pre><code class="language-javascript">element.classList.toggle("visible");</code></pre>
+        <pre><code class="language-javascript">element.classList.contains("nouBoto");</code></pre>
+
+      </div>
+    </div>
+
+    <!-- ================= FUNCIONS ================= -->
+    <div class="admonition">
+      <div class="admonition-title">Funcions en JavaScript</div>
+      <div class="admonition-content">
+
+        <pre><code class="language-javascript">function saludar() {
+  alert("Hola!");
+}</code></pre>
+
+        <pre><code class="language-javascript">const saludar = function () {
+  alert("Hola!");
+};</code></pre>
+
+        <pre><code class="language-javascript">const saludar = () => alert("Hola!");</code></pre>
+
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

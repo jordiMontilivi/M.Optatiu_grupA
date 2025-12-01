@@ -1,0 +1,26 @@
+div{
+  border: 1px solid black;
+  overflow: hidden;
+}
+div.bandera{
+  display: flex;
+  border-radius: 10px;
+  height: 30px;
+  width: 100%;
+}
+.vermell{
+  background-color: red;
+  width: 9%;
+  color: white;
+  
+}
+.blanc{
+  background-color: white;
+  width: 9%;
+  color: black;
+}
+.blau{
+  background-color: blue;
+  width: 9%;
+  color: black;
+}

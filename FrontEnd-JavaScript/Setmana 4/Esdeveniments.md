@@ -1,10 +1,13 @@
 # Sessió 4 – Esdeveniments
 
 ## Exercicis pràctics d’esdeveniments en JavaScript
+___
 
 **Exercici 1**
 Quan es fa clic al botó, mostra un alert amb el text:
 "Has fet clic al botó"
+
+___
 
 **Exercici 2**
 Modifica aquest funcionament de clic: quan es fa clic al botó:
@@ -16,9 +19,13 @@ Canvia el text de la caixa a "Clic detectat"
   - onclick
   - addEventListener
 
+___
+
 **Exercici 3**
 Quan es fa doble clic al botó:
 Canvia el text de la caixa a "Doble clic detectat"
+
+___
 
 **Exercici 2b**
 Afegeix que el botó canvie de color a verd.

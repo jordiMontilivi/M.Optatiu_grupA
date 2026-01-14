@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemple this en esdeveniments</title>
+</head>
+
+<body>
+  <button id="boto_1">Botó 1</button>
+  <button id="boto_2">Botó 2</button>
+  <button id="boto_3">Botó 3</button>
+  <button id="boto_4">Botó 4</button>
+  <script>
+    function pintaVermell() {
+      // Dins d'aquesta funció 'this' representa l'element HTML clicat (botó 1)
+      this.style.color = "white";
+      this.style.backgroundColor = "red";
+    }
+
+    // Assignem la funció directament a l'esdeveniment click de cada botó,
+    // sense posar () al final ja que provocaria l'execucio de la funció
+    document.getElementById("boto_1").onclick = pintaVermell;
+    document.getElementById("boto_2").onclick = function () {
+      // Dins d'aquesta funció 'this' representa el botó2 clicat
+      this.style.color = "white";
+      this.style.backgroundColor = "darkblue";
+    };
+    document.getElementById("boto_3").onclick = () => {
+      // Dins d'aquesta funció 'this' NO representa el botó3 clicat,
+      // ja que les funcions fletxa no tenen el seu propi context 'this'
+      // i hereten el 'this' del context on es van crear (en aquest cas, el global)
+      console.log(this); // Això no serà el botó3
+      this.style.color = "white"; // Això provocarà un error
+      this.style.backgroundColor = "red";
+    }; // <-- correcte
+    document.getElementById("boto_4").onclick = pintaVermell(); // <-- no correcte
+  </script>
+</body>
+
+</html>

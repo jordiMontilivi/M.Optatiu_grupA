@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controla la Pilota</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #4CAF50; /* Camps de futbol */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #field {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            background: #2E7D32;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #ball {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/d/d3/Soccerball.svg') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="field">
+        <div id="ball"></div>
+    </div>
+
+    <script>
+        const ball = document.getElementById('ball');
+        const field = document.getElementById('field');
+
+        // Dimensions de la pilota i el camp
+        const ballSize = 50; // Diàmetre de la pilota
+        const ballRadius = ballSize / 2; // Radi de la pilota
+        const fieldWidth = field.offsetWidth;
+        const fieldHeight = field.offsetHeight;
+
+        // Posició inicial de la pilota
+        let ballX = fieldWidth / 2 + ballRadius;
+        let ballY = fieldHeight / 2 + ballRadius;
+
+        // Velocitat de moviment
+        const speed = 10;
+
+        // Actualitza la posició de la pilota
+        function updateBallPosition() {
+            ball.style.left = `${ballX - ballRadius}px`;
+            ball.style.top = `${ballY - ballRadius}px`;
+        }
+
+        // Detecta les tecles del teclat
+        document.addEventListener('keydown', event => {
+            switch (event.key) {
+                case 'ArrowUp':
+                    ballY = Math.max(ballSize, ballY - speed); // Moure cap amunt
+                    break;
+                case 'ArrowDown':
+                    ballY = Math.min(fieldHeight, ballY + speed); // Moure cap avall
+                    break;
+                case 'ArrowLeft':
+                    ballX = Math.max(ballSize, ballX - speed); // Moure a l'esquerra
+                    break;
+                case 'ArrowRight':
+                    ballX = Math.min(fieldWidth, ballX + speed); // Moure a la dreta
+                    break;
+            }
+            updateBallPosition();
+        });
+
+        // Posiciona la pilota inicialment
+        updateBallPosition();
+    </script>
+</body>
+</html>

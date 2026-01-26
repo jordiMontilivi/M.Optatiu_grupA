@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bombolles</title>
+    <style>
+      body {
+        background-color: white;
+        overflow: hidden;
+      }
+
+      .bombolla {
+        background: radial-gradient(rgba(0, 0, 0, 0), rgb(223, 80, 80));
+        border-radius: 50%;
+        position: absolute;
+        cursor: pointer;
+      }
+      .comptador {
+        position: absolute;
+        top: 10px;
+        left: 120px;
+        font-size: 16px;
+        color: black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      // Creem el so
+      const pop = new Audio("media/pop.mp3");
+
+      // Creem el botó i afegim el botó a la web
+      const boto = document.createElement("button");
+      boto.innerHTML = "Nova bombolla";
+      boto.onclick = creaBombolla; //cridem al mètode per crear bombolles
+      document.body.appendChild(boto);
+
+      // comptadors de bombolles
+      let comptadorBombolles = 0; // Variable global per a guardar comptador de bombolles
+
+      // Creem un div per a colocar un comptador de bombolles
+      const comptador = document.createElement("div");
+      comptador.classList.add("comptador");
+      comptador.innerHTML = "Bombolles: " + comptadorBombolles;
+      document.body.appendChild(comptador);
+
+      // Funció que crea una bombolla individual
+      function creaBombolla() {
+        // Triem aleatòriament la mida, posició i transparència de la bombolla
+        let m = Math.floor(Math.random() * 200) + 50;
+        let x = Math.floor(Math.random() * (window.innerWidth - m));
+        let y = window.innerHeight;
+        // Transparència = valor aletori entre 0.5 i 1.0 amb només 2 decimals
+        let t = Math.floor((Math.random() * 0.5 + 0.5) * 100) / 100;
+
+        // Creem un div perquè sigui la nova bombolla
+        const bombolla = document.createElement("div");
+
+        // Li apliquem una classe i atributs CSS
+        bombolla.classList.add("bombolla");
+        bombolla.style.left = `${x}px`;
+        bombolla.style.top = `${y}px`;
+        bombolla.style.width = `${m}px`;
+        bombolla.style.height = `${m}px`;
+        bombolla.style.opacity = `${t}`;
+
+        // Associem l'esdeveniment onclick per poder fer explotar la bombolla
+        bombolla.onclick = function () {
+          // Quan fem clic, eliminarem l'objecte del DOM i s'esborrarà automàticament
+          this.remove();
+          // So d'explotar la bombolla
+          pop.play();
+        };
+
+        // Afegim la bombolla acabada de crear al DOM com a filla de l'objecte body
+        document.body.appendChild(bombolla);
+
+        // Actualitzem el comptador de bombolles
+        comptadorBombolles++;
+        actualitzacomptador(comptadorBombolles);
+      }
+
+      // Funció que actualitza el comptador de bombolles
+      function actualitzacomptador(puntuacio) {
+        comptador.innerHTML = "Bombolles: " + puntuacio;
+      }
+
+      // Temporitzador per moure les bombolles
+      function actualitza() {
+        // Busquem tots els elements del DOM de la classe "bombolla"
+        const llistaBombolles = document.getElementsByClassName("bombolla");
+
+        // Recorrem tots els elements
+        for (bombolla of llistaBombolles) {
+          // Guardem la coordenada Y i la mida
+          let top = parseInt(bombolla.style.top);
+          let height = parseInt(bombolla.style.height);
+
+          // Si la bombolla ha desaparegut per la part de dalt de la pantalla
+          if (top <= -height) {
+            bombolla.remove();
+          } else {
+            // Altrament fem que la bombolla vagi pujant per la pantalla
+            bombolla.style.top = Math.floor(top - height / 100) + "px";
+          }
+        }
+
+        // De tant en tant fem aparèixer alguna bombolla aleatòriament
+        if (Math.random() * 1000 >= 990) creaBombolla();
+
+        // Preparar següent redibuixat de pantalla funció magica que redibuixa tot en la pantalla
+        requestAnimationFrame(actualitza);
+      }
+
+      // Iniciar animació
+      actualitza();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.5em;
+    }
+
+    #contenidor {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+      user-select: none
+    }
+
+    .fletxa {
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background-color: grey;
+      font-size: 80px;
+      line-height: 40px;
+      cursor: pointer;
+    }
+
+    #galeria {
+      width: 500px;
+      display: flex;
+      flex-wrap: wrap;
+      background-color: lightgrey;
+    }
+
+    .foto {
+      position: relative;
+      width: 100px;
+      transition: transform 0.250s;
+      display: none;
+      cursor: pointer;
+    }
+
+    .foto:hover {
+      transform: scale(1.1);
+      outline: 10px solid black;
+      z-index: 1;
+    }
+
+    #comptador {
+      margin-top: 1em;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="contenidor">
+    <div id="anterior" class="fletxa">&#129080;</div>
+    <div id="galeria"></div>
+    <div id="seguent" class="fletxa">&#129082;</div>
+  </div>
+  <div id="comptador">Pàgina</div>
+
+  <script>
+    const fotos = [
+      { id: 1, titol: "Títol de la foto 1", fitxer: "img001.jpg", exif: {} },
+      { id: 2, titol: "Títol de la foto 2", fitxer: "img002.jpg", exif: {} },
+      { id: 3, titol: "Títol de la foto 3", fitxer: "img003.jpg", exif: {} },
+      { id: 4, titol: "Títol de la foto 4", fitxer: "img004.jpg", exif: {} },
+      { id: 5, titol: "Títol de la foto 5", fitxer: "img005.jpg", exif: {} },
+      { id: 6, titol: "Títol de la foto 6", fitxer: "img006.jpg", exif: {} },
+      { id: 7, titol: "Títol de la foto 7", fitxer: "img007.jpg", exif: {} },
+      { id: 8, titol: "Títol de la foto 8", fitxer: "img008.jpg", exif: {} },
+      { id: 9, titol: "Títol de la foto 9", fitxer: "img009.jpg", exif: {} },
+      { id: 10, titol: "Títol de la foto 10", fitxer: "img010.jpg", exif: {} },
+      { id: 11, titol: "Títol de la foto 11", fitxer: "img011.jpg", exif: {} },
+      { id: 12, titol: "Títol de la foto 12", fitxer: "img012.jpg", exif: {} },
+      { id: 13, titol: "Títol de la foto 13", fitxer: "img013.jpg", exif: {} },
+      { id: 14, titol: "Títol de la foto 14", fitxer: "img014.jpg", exif: {} },
+      { id: 15, titol: "Títol de la foto 15", fitxer: "img015.jpg", exif: {} },
+      { id: 16, titol: "Títol de la foto 16", fitxer: "img016.jpg", exif: {} },
+      { id: 17, titol: "Títol de la foto 17", fitxer: "img017.jpg", exif: {} },
+      { id: 18, titol: "Títol de la foto 18", fitxer: "img018.jpg", exif: {} }
+    ]
+    const FOTOS_PAGINA = 5
+    var numPagina = 1
+    var ultimaPagina = Math.ceil(fotos.length / FOTOS_PAGINA)
+    function $(id) {
+      return document.querySelector(id)
+    }
+    function creaFoto(foto) {
+      var pagina = Math.ceil(foto.id / FOTOS_PAGINA)
+      var novaFoto = document.createElement("img")
+      novaFoto.src = "media/fotos/" + foto.fitxer
+      novaFoto.title = foto.titol
+      novaFoto.classList.add("foto", "pag" + pagina)
+      novaFoto.draggable = false;
+      $("#galeria").appendChild(novaFoto)
+    }
+    function mostraPagina(num) {
+      var llista = document.getElementsByClassName("foto")
+      for (foto of llista) {
+        foto.style.display = foto.classList.contains("pag" + num) ? "block" : "none"
+      }
+      $("#comptador").innerHTML = "Pàgina " + num + " de " + ultimaPagina
+    }
+    $("#anterior").style["border-radius"] = "30px 0 0 30px"
+    $("#seguent").style["border-radius"] = "0 30px 30px 0"
+    $("#anterior").onclick = function () {
+      if (numPagina > 1) mostraPagina(--numPagina)
+    }
+    $("#seguent").onclick = function () {
+      if (numPagina < ultimaPagina) mostraPagina(++numPagina)
+    }
+    for (foto of fotos) creaFoto(foto)
+    mostraPagina(numPagina)
+  </script>
+</body>
+
+</html>
